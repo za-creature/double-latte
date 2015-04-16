@@ -1,6 +1,6 @@
 {
   "name": "double-latte",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Multiple inheritance for CoffeeScript",
   "author": "Radu Dan <radu@full-throttle.ro>",
   "repository": {

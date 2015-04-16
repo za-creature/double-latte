@@ -1,5 +1,3 @@
-# TODO: add manual constructor
-
 merge = (lists) ->
     # Returns the result of merging `lists` in a C3-serialization sense
     # Will destroy 'lists' in the process

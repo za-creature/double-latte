@@ -2,7 +2,7 @@
 
 Python-like [MRO based](http://en.wikipedia.org/wiki/C3_linearization) multiple inheritance for CoffeeScript.
 
-Works with all javascript engines supported by CoffeeScript.
+Should work with all javascript engines supported by Coffee.
 
 ## Example
 
@@ -13,24 +13,24 @@ Works with all javascript engines supported by CoffeeScript.
 
 class A
     constructor: ->
-        console.log "A"
+        console.log("A")
 
 
 class B extends A
     constructor: ->
-        console.log "B"
+        console.log("B")
         super
 
 
 class C extends A
     constructor: ->
-        console.log "C"
+        console.log("C")
         super
 
 
 class D extends multiple B, C
     constructor: ->
-        console.log "D"
+        console.log("D")
         super
 
 
@@ -57,4 +57,4 @@ A: Fast enough ( [Guido for president!](http://www.infoworld.com/article/2619428
 
 Q: What's the deal with `isinstance`?
 
-A: For technical reasons, the `instanceof` operator doesn't work with classes that have multiple parents. The `isinstance` and `issubclass` are provided to work around this fact.
+A: For technical reasons, the `instanceof` operator doesn't work with classes that have multiple parents. The `isinstance` and `issubclass` functions are provided to work around this fact.

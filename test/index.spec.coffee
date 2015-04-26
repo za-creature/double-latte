@@ -65,7 +65,7 @@ describe "double-latte", ->
             expect(isinstance r, A).toBe false
 
     describe "issubclass", ->
-        it "checks that isinstance correctly labels classes with multiple
+        it "checks that issubclass correctly labels classes with multiple
             parents", ->
 
             expect(issubclass D, D).toBe true

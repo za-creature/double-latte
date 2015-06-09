@@ -61,4 +61,4 @@ A: For technical reasons, the `instanceof` operator doesn't work with classes th
 
 ## Alternatives
 
-* [heterarchy](https://github.com/arximboldi/heterarchy) - decoupled from [mixco.multi](http://sinusoid.es/mixco/mixco/multi.html) which served as the original inspiration for this project; has cleaner code and better test coverage but depends on underscore
+* [heterarchy](https://github.com/arximboldi/heterarchy) - decoupled from [mixco.multi](http://sinusoid.es/mixco/mixco/multi.html) which served as the original inspiration for this project; has cleaner code and better test coverage but depends on [underscore](http://underscorejs.org/)

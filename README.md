@@ -58,3 +58,7 @@ A: Fast enough ( [Guido for president!](http://www.infoworld.com/article/2619428
 Q: What's the deal with `isinstance`?
 
 A: For technical reasons, the `instanceof` operator doesn't work with classes that have multiple parents. The `isinstance` and `issubclass` functions are provided to work around this fact.
+
+## Alternatives
+
+* [heterarchy](https://github.com/arximboldi/heterarchy) - decoupled from [mixco.multi](http://sinusoid.es/mixco/mixco/multi.html) which served as the original inspiration for this project; has cleaner code and better test coverage but depends on underscore

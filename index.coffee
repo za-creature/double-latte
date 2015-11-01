@@ -20,14 +20,12 @@ merge = (lists) ->
     if not candidates.length
         throw new SyntaxError("Ambiguous class inheritance schema")
 
-    result = []
-    for candidate in candidates
-        result.push(candidate)
-        for list in lists
-            if list[0] is candidate
-                list.shift()
+    for list in lists
+        if list[0] in candidates
+            list.shift()
 
-    result.concat(merge(list for list in lists when list.length > 0))
+    Array::push.apply(candidates, merge(l for l in lists when l.length > 0))
+    candidates
 
 
 mro = (cls) ->
@@ -39,7 +37,7 @@ mro = (cls) ->
 
     result = [cls]
     if `hasProp`.call(cls, "__super__")
-        result = result.concat(mro(cls.__super__.constructor))
+        Array::push.apply(result, mro(cls.__super__.constructor))
 
     cls::__mro__ = result
 
@@ -116,8 +114,8 @@ exports.issubclass = (cls, targets) ->
     hierarchy = mro(cls)
     if targets instanceof Array
         for target in targets
-            if target in hierarchy or target is Object
+            if target is Object or target in hierarchy
                 return true
         false
     else
-        targets in hierarchy or targets is Object
+        targets is Object or targets in hierarchy

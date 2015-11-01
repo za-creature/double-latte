@@ -1,79 +1,121 @@
-describe "double-latte", ->
-    {multiple, isinstance, issubclass} = require "../index"
-    expect = require "expect"
+require("chai").should()
 
 
-    global = ""
+{multiple, isinstance, issubclass} = require "../index"
 
-    class A
-        constructor: -> global += "A"
-        method: -> "A"
-        @static: -> "A"
 
-    class B extends A
-        constructor: ->
-            global += "B"
-            super
-        method: -> "B" + super
-        @static: -> "B" + super
+global = ""
 
-    class C extends A
-        constructor: ->
-            global += "C"
-            super
-        method: -> "C" + super
-        @static: -> "C" + super
 
-    class D extends multiple B, C
-        constructor: ->
-            global += "D"
-            super
-        method: -> "D" + super
-        @static: -> "D" + super
+class A
+    prop: "A"
+    @prop: "A"
+    constructor: ->
+        global += "A"
+    method: -> "A"
+    @method: -> "A"
 
-    class Random
 
-    describe "multiple", ->
+class B extends A
+    prop: "B"
+    @prop: "B"
+    constructor: ->
+        global += "B"
+        super()
+    method: -> "B" + super()
+    @method: -> "B" + super()
 
-        it "checks that the constructor call order is correct", ->
-            d = new D
-            expect(global).toBe "DBCA"
 
-        it "checks that the method call order is correct", ->
-            d = new D
-            expect(d.method()).toBe "DBCA"
+class C extends A
+    prop: "C"
+    @prop: "C"
+    constructor: ->
+        global += "C"
+        super()
+    method: -> "C" + super()
+    @method: -> "C" + super()
 
-        it "checks that the static method call order is correct", ->
-            expect(D.static()).toBe "DBCA"
 
-    describe "isinstance", ->
-        it "checks that isinstance correctly labels instances of classes with
-            multiple parents", ->
+class D extends multiple B, C
+    prop: "D"
+    @prop: "D"
+    constructor: ->
+        global += "D"
+        super()
+    method: -> "D" + super()
+    @method: -> "D" + super()
 
-            d = new D
-            a = new A
-            o = new Object
-            r = new Random
-            expect(isinstance d, D).toBe true
-            expect(isinstance d, B).toBe true
-            expect(isinstance d, C).toBe true
-            expect(isinstance d, A).toBe true
-            expect(isinstance d, Object).toBe true
-            expect(isinstance a, Object).toBe true
-            expect(isinstance o, A).toBe false
-            expect(isinstance r, D).toBe false
-            expect(isinstance r, A).toBe false
 
-    describe "issubclass", ->
-        it "checks that issubclass correctly labels classes with multiple
-            parents", ->
+class Random
 
-            expect(issubclass D, D).toBe true
-            expect(issubclass D, B).toBe true
-            expect(issubclass D, C).toBe true
-            expect(issubclass D, A).toBe true
-            expect(issubclass D, Object).toBe true
-            expect(issubclass A, Object).toBe true
-            expect(issubclass Object, A).toBe false
-            expect(issubclass Random, D).toBe false
-            expect(issubclass Random, A).toBe false
+
+describe "multiple", ->
+    it "calls super() in the correct order for constructors", ->
+        d = new D()
+        global.should.equal("DBCA")
+
+    it "calls super() in the correct order for methods", ->
+        d = new D()
+        d.method().should.equal("DBCA")
+
+    it "calls super() in the correct order for static methods", ->
+        D.method().should.equal("DBCA")
+
+    it "inherits properties in the correct order", ->
+        new D().prop.should.equal("D")
+        new C().prop.should.equal("C")
+        new B().prop.should.equal("B")
+        new A().prop.should.equal("A")
+
+        D.prop.should.equal("D")
+        C.prop.should.equal("C")
+        B.prop.should.equal("B")
+        A.prop.should.equal("A")
+
+    it "inherits properties without calling the constructor", ->
+        class BaseA
+            prop: "A"
+            propA: "A"
+
+        class BaseB
+            prop: "B"
+            propB: "B"
+
+        class Derived extends multiple BaseA, BaseB
+            constructor: ->
+                undefined
+
+        d = new Derived()
+        d.prop.should.equal("A")
+        d.propA.should.equal("A")
+        d.propB.should.equal("B")
+
+
+describe "isinstance", ->
+    it "should correctly label instances of classes with multiple parents", ->
+        d = new D()
+        a = new A()
+        o = new Object()
+        r = new Random()
+        isinstance(d, D).should.be.true
+        isinstance(d, B).should.be.true
+        isinstance(d, C).should.be.true
+        isinstance(d, A).should.be.true
+        isinstance(d, Object).should.be.true
+        isinstance(a, Object).should.be.true
+        isinstance(o, A).should.be.false
+        isinstance(r, D).should.be.false
+        isinstance(r, A).should.be.false
+
+
+describe "issubclass", ->
+    it "should correctly label classes with multiple parents", ->
+        issubclass(D, D).should.be.true
+        issubclass(D, B).should.be.true
+        issubclass(D, C).should.be.true
+        issubclass(D, A).should.be.true
+        issubclass(D, Object).should.be.true
+        issubclass(A, Object).should.be.true
+        issubclass(Object, A).should.be.false
+        issubclass(Random, D).should.be.false
+        issubclass(Random, A).should.be.false

@@ -10,11 +10,10 @@
   "bugs": {
     "url": "https://github.com/za-creature/double-latte/issues"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
+    "chai": "^3.4.0",
     "coffee-script": "^1.9.2",
-    "expect": "^1.6.0",
     "mocha": "^2.2.4"
   },
   "license": "MIT",

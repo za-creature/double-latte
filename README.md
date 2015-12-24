@@ -34,8 +34,8 @@ class D extends multiple B, C
         super
 
 
-d = new D  # will print D; B; C; A;
-isinstance d, B  # true
+d = new D()  # will print D; B; C; A;
+isinstance(d, B)  # true
 
 ```
 
